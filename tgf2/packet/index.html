@@ -1,1 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Packet</title>
+<style type="text/css">
+.copyright {
+	text-align: center;
+	color: #FFF;
+}
+body {
+	background-image: url(img/tile.fw.png);
+	background-repeat: repeat;
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+function home(){
+	document.getElementById("howto").style.display="";
+	document.getElementById("gameplay").style.display="none";
+}
+function gameplay(){
+	document.getElementById("howto").style.display="none";
+	document.getElementById("gameplay").style.display="";
+}
+</script>
+</head>
 
+<body>
+<table width="100%" border="0">
+  <tr>
+    <td bgcolor="#999999"><img src="img/banner.fw.png" width="256" height="128" /></td>
+  </tr>
+  <tr>
+    <td><a href="javascript:home()"><img src="img/home.fw.png" width="90" height="25" /></a><a href="javascript:gameplay()"><img src="img/gameplay.fw.png" width="90" height="25" /></a></td>
+  </tr>
+  <tr>
+    <td bgcolor="#999999">&nbsp;</td>
+  </tr>
+  <tr>
+    <td><div id="howto">
+    <h1>How to play</h1>
+      <table width="100%" border="1">
+        <tr>
+          <th width="7%" scope="col">&nbsp;</th>
+          <th width="7%" colspan="2" scope="col">Name</th>
+          <th width="86%" scope="col">Description</th>
+        </tr>
+        <tr>
+          <th rowspan="3" scope="row">Objects</th>
+          <td colspan="2">Attack packets</td>
+          <td><p>If the player touched it, it will minus 10 from the player's health.</p>
+            <p>Spawns from the right with the interval specified on the top, e.g. &quot;Delay: 1000ms&quot;.<br />
+              It means it will spawns every 1 second (1000 milliseconds).</p>
+            <p>And it will focus/point to the player randomly with the chance specified on the top, e.g.<br />
+              &quot;Correction: 1/50 chances&quot;. It means it will focus/point to the player randomly with the<br />
+              chance 1/50.</p>
+            <p><br />
+              If the attack packet leaves you (punch to the wall), it will disappear and gives you &quot;50 times Game Level&quot; points.            </p></td>
+        </tr>
+        <tr>
+          <td colspan="2">Explosive</td>
+          <td><p>If the player touched it, it will spawn multiple &quot;Attack packets&quot; to all direction. And<br />
+            make the &quot;Attack packets&quot; to focus/point to the player after 250 milliseconds.</p>
+            <p>Spawns from the right with the interval specified on the top, e.g. &quot;Delay: 1000ms&quot;.<br />
+              It means it will spawns every 1 second (1000 milliseconds).</p>
+            <p>Not similar to attack packets, explosive with not focus/point to the player randomly with the<br />
+              chance specified on the top (Correction).</p>
+            <p>If the game level is 7 or higher, explosive will focus/point to the player randomly with the<br />
+              chance 1/50. The chance will not be changed.</p>
+          <p>It will probably minus half of the player's health.</p></td>
+        </tr>
+        <tr>
+          <td colspan="2">Super-explosive</td>
+          <td><p>Similar to &quot;Explosive&quot;, it does the same thing.</p>
+            <p>But, if the player touched it, it will spawn multiple &quot;Explosive&quot; to all direction. And<br />
+              make the &quot;Explosive&quot; to focus/point to the player after 250 milliseconds.</p>
+            <p>It will probably minus whole of the player's health.</p>
+            <p>-&gt; Heal Packet:</p>
+            <p>Heals the player by adding 20 to the player's health.</p>
+            <p>-&gt; Score Ball:</p>
+          <p>Adds &quot;500 times Game Level&quot; points to the player's score.</p></td>
+        </tr>
+        <tr>
+          <th rowspan="4" scope="row">Game Control</th>
+          <td colspan="2">Mouse</td>
+          <td>Simply use your mouse to control up and down.</td>
+        </tr>
+        <tr>
+          <td colspan="2">Escape (ESC)</td>
+          <td>Press escape (ESC) to end the game.</td>
+        </tr>
+        <tr>
+          <td colspan="2">Show debug field</td>
+          <td>F3</td>
+        </tr>
+        <tr>
+          <td colspan="2">Hide debug field</td>
+          <td>F4</td>
+        </tr>
+        <tr>
+          <th rowspan="18" scope="row">Debug code (Cheat code)</th>
+          <td colspan="2">heal</td>
+          <td>Heals the player. Set the player's health to 100</td>
+        </tr>
+        <tr>
+          <td colspan="2">healthadd</td>
+          <td>Add 100 to the player's health</td>
+        </tr>
+        <tr>
+          <td colspan="2">scorereset</td>
+          <td>Reset the player's score. Set to 0</td>
+        </tr>
+        <tr>
+          <td colspan="2">scoreadd100</td>
+          <td>Add 100 to the player's score</td>
+        </tr>
+        <tr>
+          <td colspan="2">scoreadd1000</td>
+          <td>Add 1000 to the player's score</td>
+        </tr>
+        <tr>
+          <td colspan="2">scoreadd10000</td>
+          <td>Add 10000 to the player's score</td>
+        </tr>
+        <tr>
+          <td colspan="2">spawnex</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td colspan="2">spawnsuex</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td rowspan="2">spawn</td>
+          <td>:true</td>
+          <td>Enable object spawning</td>
+        </tr>
+        <tr>
+          <td>:false</td>
+          <td>Disable object spawning</td>
+        </tr>
+        <tr>
+          <td rowspan="2">gc</td>
+          <td>:true</td>
+          <td>Enable game player control</td>
+        </tr>
+        <tr>
+          <td>:false</td>
+          <td>Disable game player control</td>
+        </tr>
+        <tr>
+          <td rowspan="3">go</td>
+          <td>:show</td>
+          <td>Show &quot;Game Over&quot; text (Probably will not show anything unless GO1 is called)</td>
+        </tr>
+        <tr>
+          <td>:hide</td>
+          <td>Hide &quot;Game Over&quot; text</td>
+        </tr>
+        <tr>
+          <td>:end</td>
+          <td>Calls GO1 event</td>
+        </tr>
+        <tr>
+          <td colspan="2">god</td>
+          <td>God mode, unlimited health</td>
+        </tr>
+        <tr>
+          <td colspan="2">human</td>
+          <td>Human mode, disable unlimited health, and set to 100</td>
+        </tr>
+        <tr>
+          <td colspan="2">levelup</td>
+          <td>Level up, by calling LevelUp event. But it will cause multiple level up timer running.</td>
+        </tr>
+      </table>
+      </div>
+      <div id="gameplay" style="display: none" width="100%" height="1000">
+      <iframe src="gameplay/index.html" width="100%" height="1000">Your browser does not support iframe.</iframe>
+      </div>
+      </td>
+  </tr>
+  <tr>
+    <td bgcolor="#666666" class="copyright">Copyright (c) 2016. mob41. Licenced under GNU General Public License.</td>
+  </tr>
+</table>
+</body>
+</html>

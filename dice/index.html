@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="apple-mobile-web-app-title" content="KmbETA-App">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Dice</title>
+  <style>
+      html, body {
+	    width: 100%;
+        height: 100%;
+      }
+	  
+	  .choosedice-btn {
+	      width: 100%;
+		  height: 20%;
+	  }
+  </style>
+  <script>
+  var mode = 3;
+  var shu = 0;
+  
+  function rand(){
+      shu = 0;
+	  document.getElementById("diceTotal").innerHTML = "---";
+      sh();
+  }
+  
+  function sh(){
+      if (shu > 20){
+	      sr(true);
+		  return;
+	  }
+	  sr();
+	  shu++;
+	  setTimeout(function(){sh()}, 50);
+  }
+  
+  function sr(showTotal){
+      var rand;
+	  var str = "";
+	  var total = 0;
+	  for (var i = 0; i < mode; i++){
+	      if (i != 0){
+		      str += "&emsp;";
+		  }
+		  rand = Math.floor(Math.random() * 9 + 1);
+		  str += rand;
+		  total += rand;
+	  }
+	  document.getElementById("dice").innerHTML = str;
+	  
+	  if (showTotal){
+	      document.getElementById("diceTotal").innerHTML = "Total: " + total;
+	  }
+  }
+  
+  function sm(m){
+      mode = m;
+  }
+  </script>
+</head>
+
+<body>
+    <center>
+	    <p id="dice" style="font-size:72px">-&emsp;-&emsp;-</h1>
+	    <h1 id="diceTotal" style="font-size:48px">---</h1>
+	</center>
+	<button class="choosedice-btn" onclick="rand()">Push</button>
+	<table class="choosedice-btn">
+	    <tr>
+	        <td><button class="choosedice-btn" onclick="sm(1)">1 Dice</button></td>
+	        <td><button class="choosedice-btn" onclick="sm(2)">2 Dice</button></td>
+	        <td><button class="choosedice-btn" onclick="sm(3)">3 Dice</button></td>
+	    </tr>
+	</table>
+</body>
+
+</html>

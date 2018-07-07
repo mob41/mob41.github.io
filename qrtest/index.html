@@ -1,0 +1,147 @@
+<html>
+<head>
+<title>QR Test</title>
+
+<!-- QR Reader Script Start -->
+<script type="text/javascript" src="grid.js"></script>
+<script type="text/javascript" src="version.js"></script>
+<script type="text/javascript" src="detector.js"></script>
+<script type="text/javascript" src="formatinf.js"></script>
+<script type="text/javascript" src="errorlevel.js"></script>
+<script type="text/javascript" src="bitmat.js"></script>
+<script type="text/javascript" src="datablock.js"></script>
+<script type="text/javascript" src="bmparser.js"></script>
+<script type="text/javascript" src="datamask.js"></script>
+<script type="text/javascript" src="rsdecoder.js"></script>
+<script type="text/javascript" src="gf256poly.js"></script>
+<script type="text/javascript" src="gf256.js"></script>
+<script type="text/javascript" src="decoder.js"></script>
+<script type="text/javascript" src="qrcode.js"></script>
+<script type="text/javascript" src="findpat.js"></script>
+<script type="text/javascript" src="alignpat.js"></script>
+<script type="text/javascript" src="databr.js"></script>
+
+<script>
+qrcode.callback = function(data){
+    document.getElementById("val").innerHTML = data;
+}
+</script>
+<!-- QR Reader Script End -->
+
+<style>
+#container {
+    margin: 0px auto;
+    width: 500px;
+    height: 375px;
+    border: 10px #333 solid;
+}
+#videoElement {
+    width: 500px;
+    height: 375px;
+    background-color: #666;
+}
+#canvas {
+    width: 500px;
+    height: 375px;
+    
+    background-color: #CCC;
+}
+</style>
+
+</head>
+<body>
+<div id="val">No val</div>
+
+<!-- On iOS 6 we can use the file select input with the following attributes to capture an image from the camera -->
+<input id="fileselect" type="file" accept="image/*" capture="camera">
+
+<!-- For devices that support getUserMedia and have a webcam we can display the feed in a video element -->
+<div id="container">
+    <video autoplay id="videoElement">
+     
+    </video>
+</div>
+
+<-- Selected image will be draw to a canvas -->
+<canvas id="canvas" width="500" height="375"></canvas>
+
+<!-- Used to capture frame from webcam video feed -->
+<input type="button" value="Save" id="save" />
+
+<-- Or alternatively added to an img tag -->
+<img id="imgtag" src="" width="500" height="375" alt="capture" />
+
+<-- For the JavaScript below -->
+<script>
+var video = document.querySelector("#videoElement");
+
+// check for getUserMedia support
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+ 
+if (navigator.getUserMedia) {       
+    // get webcam feed if available
+    navigator.getUserMedia({video: true}, handleVideo, videoError);
+}
+ 
+function handleVideo(stream) {
+    // if found attach feed to video element
+    video.src = window.URL.createObjectURL(stream);
+}
+ 
+function videoError(e) {
+    // no webcam found - do something
+}
+var v,canvas,context,w,h;
+var imgtag = document.getElementById('imgtag'); // get reference to img tag
+var sel = document.getElementById('fileselect'); // get reference to file select input element
+
+document.addEventListener('DOMContentLoaded', function(){
+    // when DOM loaded, get canvas 2D context and store width and height of element
+    v = document.getElementById('videoElement');
+    canvas = document.getElementById('canvas');
+    context = canvas.getContext('2d');
+    w = canvas.width;
+    h = canvas.height;
+
+},false);
+
+function draw(v,c,w,h) {
+
+    if(v.paused || v.ended) return false; // if no video, exit here
+
+    context.drawImage(v,0,0,w,h); // draw video feed to canvas
+   
+   var uri = canvas.toDataURL("image/png"); // convert canvas to data URI
+   
+   // console.log(uri); // uncomment line to log URI for testing
+   
+   imgtag.src = uri; // add URI to IMG tag src
+}
+
+document.getElementById('save').addEventListener('click',function(e){
+    
+    draw(v,context,w,h); // when save button is clicked, draw video feed to canvas
+    
+});
+
+// for iOS 
+
+// create file reader
+var fr;
+
+sel.addEventListener('change',function(e){
+    var f = sel.files[0]; // get selected file (camera capture)
+    
+    fr = new FileReader();
+    fr.onload = receivedData; // add onload event
+
+    fr.readAsDataURL(f); // get captured image as data URI
+})
+
+function receivedData() {           
+    // readAsDataURL is finished - add URI to IMG tag src
+    imgtag.src = fr.result;
+}
+</script>
+</body>
+</html>

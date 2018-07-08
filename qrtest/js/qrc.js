@@ -171,7 +171,7 @@ function error(error)
 
 function load()
 {
-        $("body").onclick(function(){bodyOnClick()});
+        $("body").on("click", function(){bodyOnClick()});
 	if(typeof(Storage) !== "undefined" && isCanvasSupported() && window.File && window.FileReader)
 	{
 		initCanvas(800, 600);

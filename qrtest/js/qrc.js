@@ -136,8 +136,16 @@ function success(stream)
 {
 
     v.srcObject = stream;
-    v.play();
+    var p = v.play();
 
+    if (p !== undefined) {
+        p.catch(error => {
+            $("#playbtn").html("<button onclick=\"v.play();\">Play</button>");
+        }).then(() => {
+            // Auto-play started
+        });
+    }
+    
     gUM=true;
     t = setTimeout(captureToCanvas, 500);
 }
@@ -196,7 +204,6 @@ function setwebcam()
 function setwebcam2(options)
 {
 	console.log(options);
-	document.getElementById("result").innerHTML="- scanning -";
     if(stype==1)
     {
         setTimeout(captureToCanvas, 500);    

@@ -10,6 +10,7 @@ var webkit=false;
 var moz=false;
 var v=null;
 var t;
+var cams = [];
 
 var imghtml='<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas>'+
     '<div id="imghelp">drag and drop a QRCode here'+
@@ -178,9 +179,20 @@ function load()
 	}
 }
 
+function selectCam(id){
+	localStorage.setItem("camDevId", id);
+    window.location = "qr_scan.html";
+}
+
+function unselectAllCams(){
+    localStorage.removeItem('camDevId');
+    window.location = 'qr_scan.html';
+}
+
 function setwebcam()
 {
-	
+	var devId = localStorage.getItem("camDevId");
+    var devIdExist = false;
 	var options = true;
 	if(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
 	{
@@ -189,11 +201,43 @@ function setwebcam()
 			.then(function(devices) {
 			  devices.forEach(function(device) {
 				if (device.kind === 'videoinput') {
+                    if (devId && device.deviceId == devId){
+                        devIdExist = true;
+                    }
+                cams.push({
+                   label: device.label,
+                   id: device.deviceId                   
+                });
 				  if(device.label.toLowerCase().search("back") >-1)
 					options={'deviceId': {'exact':device.deviceId}, 'facingMode':'environment'} ;
 				}
 				console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
 			  });
+              
+              if (devId && devIdExist){
+				 options={'deviceId': {'exact': devId}, 'facingMode':'environment'} ;
+              }
+              
+              var html = "";
+              for (var i = 0; i < cams.length; i++){
+                  html += "<p>";
+                  if (devId && cams[i].id == devId){
+                      html += "<b>";
+                  }
+                  
+                  html += cams[i].label + ": " + cams[i].id;
+                  
+                  if (devId && cams[i].id == devId){
+                      html += "</b>";
+                  }
+                  
+                  html += " <button onclick=\"selectCam('" + cams[i].id + "')\">Select</button>";
+                  html += "</p>";
+              }
+              html += "<p><button onclick=\"unselectAllCams();\">Unselect All</button></p>";
+              
+              $("#selectCam").html(html);
+              
 			  setwebcam2(options);
 			});
 		}

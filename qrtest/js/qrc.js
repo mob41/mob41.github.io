@@ -132,6 +132,7 @@ function isCanvasSupported(){
   var elem = document.createElement('canvas');
   return !!(elem.getContext && elem.getContext('2d'));
 }
+
 function success(stream) 
 {
 
@@ -142,9 +143,7 @@ function success(stream)
         p.catch(error => {
             $("#playbtn").html("<button onclick=\"bodyOnClick()\" style=\"width: 40px; height: 40 px;\">Play</button>");
             $("#outdiv").attr("style", "display: none");
-            forcePlay = true;
         }).then(() => {
-            forcePlay = false;
             // Auto-play started
         });
     }
@@ -153,16 +152,10 @@ function success(stream)
     t = setTimeout(captureToCanvas, 500);
 }
 
-var forcePlay = false;
-
 function bodyOnClick(){
-    if (forcePlay){
-        forcePlay = false;
-        $("#outdiv").attr("style", "display: ");
-        v.play();
-        $("#playbtn").html("");
-    }
-        
+    $("#outdiv").attr("style", "display: ");
+    v.play();
+    $("#playbtn").html("");
 }
 		
 function error(error)

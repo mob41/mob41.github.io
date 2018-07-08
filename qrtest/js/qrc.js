@@ -140,14 +140,27 @@ function success(stream)
 
     if (p !== undefined) {
         p.catch(error => {
-            $("#playbtn").html("<button onclick=\"v.play();\">Play</button>");
+            $("#outdiv").style("display", "none");
+            forcePlay = true;
         }).then(() => {
+            forcePlay = false;
             // Auto-play started
         });
     }
     
     gUM=true;
     t = setTimeout(captureToCanvas, 500);
+}
+
+var forcePlay = false;
+
+function bodyOnClick(){
+    if (forcePlay){
+        forcePlay = false;
+        $("#outdiv").style("display", "");
+        v.play();
+    }
+        
 }
 		
 function error(error)
@@ -158,6 +171,7 @@ function error(error)
 
 function load()
 {
+        $("body").onclick(function(){bodyOnClick()});
 	if(typeof(Storage) !== "undefined" && isCanvasSupported() && window.File && window.FileReader)
 	{
 		initCanvas(800, 600);
@@ -184,7 +198,7 @@ function setwebcam()
 				  if(device.label.toLowerCase().search("back") >-1)
 					options={'deviceId': {'exact':device.deviceId}, 'facingMode':'environment'} ;
 				}
-				console.log(device.kind + ": " + device.label +" id = " + device.deviceId);
+				console.log(device.kind + ": " + device.label + " id = " + device.deviceId);
 			  });
 			  setwebcam2(options);
 			});

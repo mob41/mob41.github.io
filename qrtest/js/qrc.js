@@ -9,6 +9,7 @@ var gUM=false;
 var webkit=false;
 var moz=false;
 var v=null;
+var t;
 
 var imghtml='<div id="qrfile"><canvas id="out-canvas" width="320" height="240"></canvas>'+
     '<div id="imghelp">drag and drop a QRCode here'+
@@ -103,12 +104,28 @@ function htmlEntities(str) {
 
 function read(a)
 {
+    clearInterval(t);
+    /*
     var html="<br>";
     if(a.indexOf("http://") === 0 || a.indexOf("https://") === 0)
         html+="<a target='_blank' href='"+a+"'>"+a+"</a><br>";
     html+="<b>"+htmlEntities(a)+"</b><br><br>";
+    
     $("html").html("Done");
     document.getElementById("result").innerHTML=html;
+    */
+    localStorage.setItem("lastQrResult", a);
+    
+    $("body").html(a);
+    
+    var redirect = localStorage.getItem("qrDoneRedirect");
+    
+    if (redirect){
+        localStorage.removeItem("qrDoneRedirect");
+        window.location = redirect;
+    } else {
+        //alert(a);
+    }
 }	
 
 function isCanvasSupported(){
@@ -122,7 +139,7 @@ function success(stream)
     v.play();
 
     gUM=true;
-    setTimeout(captureToCanvas, 500);
+    t = setTimeout(captureToCanvas, 500);
 }
 		
 function error(error)
@@ -133,19 +150,15 @@ function error(error)
 
 function load()
 {
-	if(isCanvasSupported() && window.File && window.FileReader)
+	if(typeof(Storage) !== "undefined" && isCanvasSupported() && window.File && window.FileReader)
 	{
 		initCanvas(800, 600);
 		qrcode.callback = read;
-		document.getElementById("mainbody").style.display="inline";
         setwebcam();
 	}
 	else
 	{
-		document.getElementById("mainbody").style.display="inline";
-		document.getElementById("mainbody").innerHTML='<p id="mp1">QR code scanner for HTML5 capable browsers</p><br>'+
-        '<br><p id="mp2">sorry your browser is not supported</p><br><br>'+
-        '<p id="mp1">try <a href="http://www.mozilla.com/firefox"><img src="firefox.png"/></a> or <a href="http://chrome.google.com"><img src="chrome_logo.gif"/></a> or <a href="http://www.opera.com"><img src="Opera-logo.png"/></a></p>';
+        alert("Device not compatible");
 	}
 }
 
@@ -215,12 +228,11 @@ function setwebcam2(options)
         webkit=true;
         n.webkitGetUserMedia({video:options, audio: false}, success, error);
     }
-
-    document.getElementById("qrimg").style.opacity=0.2;
-    document.getElementById("webcamimg").style.opacity=1.0;
+    
+    
 
     stype=1;
-    setTimeout(captureToCanvas, 500);
+    t = setTimeout(captureToCanvas, 500);
 }
 
 function setimg()

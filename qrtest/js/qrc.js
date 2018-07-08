@@ -140,7 +140,7 @@ function success(stream)
 
     if (p !== undefined) {
         p.catch(error => {
-            $("#outdiv").style("display", "none");
+            $("#outdiv").attr("style", "display: none");
             forcePlay = true;
         }).then(() => {
             forcePlay = false;
@@ -157,7 +157,7 @@ var forcePlay = false;
 function bodyOnClick(){
     if (forcePlay){
         forcePlay = false;
-        $("#outdiv").style("display", "");
+        $("#outdiv").attr("style", "display: ");
         v.play();
     }
         

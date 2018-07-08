@@ -140,6 +140,7 @@ function success(stream)
 
     if (p !== undefined) {
         p.catch(error => {
+            $("#playbtn").html("<button onclick=\"bodyOnClick()\" style=\"width: 40px; height: 40 px;\">Play</button>");
             $("#outdiv").attr("style", "display: none");
             forcePlay = true;
         }).then(() => {
@@ -159,6 +160,7 @@ function bodyOnClick(){
         forcePlay = false;
         $("#outdiv").attr("style", "display: ");
         v.play();
+        $("#playbtn").html("");
     }
         
 }
@@ -171,7 +173,6 @@ function error(error)
 
 function load()
 {
-        $("body").on("click", function(){bodyOnClick()});
 	if(typeof(Storage) !== "undefined" && isCanvasSupported() && window.File && window.FileReader)
 	{
 		initCanvas(800, 600);

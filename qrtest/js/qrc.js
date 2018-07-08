@@ -197,6 +197,7 @@ function setwebcam()
 	if(navigator.mediaDevices && navigator.mediaDevices.enumerateDevices)
 	{
 		try{
+            /*
 			navigator.mediaDevices.enumerateDevices()
 			.then(function(devices) {
 			  devices.forEach(function(device) {
@@ -237,6 +238,8 @@ function setwebcam()
               html += "<p><button onclick=\"unselectAllCams();\">Unselect All</button></p>";
               
               $("#selectCam").html(html);
+              */
+              options={'facingMode':'environment'} ;
               
 			  setwebcam2(options);
 			});

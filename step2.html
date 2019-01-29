@@ -78,16 +78,28 @@
 
             function stopTimer() {
                 stop = true;
-                alert("Final time: " + texttime());
+                var x = 0;
+                if (localStorage) {
+                    x = parseInt(localStorage.getItem("step1-time"));
+                }
+                var y = time + x;
+                alert("Step 1 time: " + texttime(true, x) +
+                    "\nStep 2 time: " + texttime() +
+                    "\nFinal time: " + texttime(true, y)
+                    );
             }
 
-            function texttime() {
+            function texttime(x, t) {
+                var y = time;
+                if (x) {
+                    y = t;
+                }
                 var ms = 0;
                 var m = 0;
                 var s = 0;
-                var calc = time / 1000.0;
+                var calc = y / 1000.0;
                 if (calc < 0) {
-                    ms = time / 10;
+                    ms = y / 10;
                 } else {
                     s = Math.floor(calc);
                     ms = (calc - s) * 100;

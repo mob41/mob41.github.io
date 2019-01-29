@@ -1,0 +1,260 @@
+﻿<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Practice</title>
+		<style type="text/css">
+		</style>
+        <script>
+			function checkform() {
+			    var nameletters = /^[A-Z]+$/;
+				var idnumletters = /^[0-9]+$/;
+				var emailletters = /^[a-z0-9@._%+-]+$/;
+				if ((document.getElementById('applicantsurname').value == '') || (!document.getElementById('applicantsurname').value.match(nameletters))) {  
+					alert('必須與身分證顯示相同及以英文大楷輸入，無需空格，例：AUYEUNG');  
+					document.registrationform.applicantsurname.focus();  
+					return false;  
+				}; 
+				if ((document.getElementById('applicantgivenname').value == '') || (!document.getElementById('applicantgivenname').value.match(nameletters))) {  
+					alert('必須與身分證顯示相同及以英文大楷輸入，無需空格，例：TAIMAN');  
+					document.registrationform.applicantgivenname.focus();  
+					return false;  
+				};
+				if ((document.getElementById('applicantidnum').value == '') || (document.getElementById('applicantidnum').value.length != 4) || (!document.getElementById('applicantidnum').value.match(idnumletters))) {  
+					alert('首4位數字，例: 如證件號碼為A123456，需填寫1234');  
+					document.registrationform.applicantidnum.focus();  
+					return false;  
+				};
+				if ((document.getElementById('applicantemail').value == '') || (document.getElementById('applicantemail').value.match(emailletters))) {  
+				} else {  
+					alert('必須有效電郵地址及以英文小楷輸入，例：chantaiman@abc.hk');  
+					document.registrationform.applicantemail.focus();  
+					return false;  
+				};
+				if ((document.getElementById('companionsurname').value == '') || (document.getElementById('companionsurname').value.match(nameletters))) {  
+				} else {  
+					alert('必須與身分證顯示相同及以英文大楷輸入，無需空格，例：AUYEUNG');  
+					document.registrationform.companionsurname.focus();  
+					return false;  
+				}; 
+				if ((document.getElementById('companiongivenname').value == '') || (document.getElementById('companiongivenname').value.match(nameletters))) {  
+				} else {  
+					alert('必須與身分證顯示相同及以英文大楷輸入，無需空格，例：TAIMAN');  
+					document.registrationform.companiongivenname.focus();  
+					return false;  
+				};
+				if ((document.getElementById('companionidnum').value == '') || ((document.getElementById('companionidnum').value.length == 4) && (document.getElementById('companionidnum').value.match(idnumletters)))) {  
+				} else {  
+					alert('首4位數字，例: 如證件號碼為A123456，需填寫1234');  
+					document.registrationform.companionidnum.focus();  
+					return false;  
+                };
+                if (!cap) {
+                    alert("You need to click to have fun first!");
+                    return false;
+                }
+            }
+
+            var time = 0;
+            var stop = false;
+            var cap = false;
+
+            function tick() {
+                if (stop) {
+                    return;
+                }
+                time += 100;
+                updateUiTimer();
+                setTimeout(function () { tick() }, 100);
+            }
+
+            function capa() {
+                document.getElementById("f").innerHTML = "Please wait for 5 seconds for having fun...";
+                setTimeout(function () {
+
+                    document.getElementById("f").innerHTML = "Done!";
+                    cap = true;
+                }, 5000);
+            }
+
+            function stopTimer() {
+                stop = true;
+                alert("Final time: " + texttime());
+            }
+
+            function texttime() {
+                var ms = 0;
+                var m = 0;
+                var s = 0;
+                var calc = time / 1000.0;
+                if (calc < 0) {
+                    ms = time / 10;
+                } else {
+                    s = Math.floor(calc);
+                    ms = (calc - s) * 100;
+                }
+
+                var calc = s / 60.0;
+                if (s > 1) {
+                    m = Math.floor(calc);
+                    s = (calc - m) * 60;
+                }
+
+                ms += Math.round(Math.random() * 10);
+
+                return fillZero(m) + ":" + fillZero(s) + ":" + fillZero(ms);
+            }
+
+            function fillZero(x) {
+                x = Math.round(x);
+                return x < 10 ? ("0" + x) : x;
+            }
+
+            function updateUiTimer() {
+                document.getElementById("timer").innerHTML = texttime();
+            }
+
+		</script>
+	</head>
+	<body onload="document.getElementById('applicantsurname').focus(); tick();" style="font-size:100%;">
+        <form id="registrationform" action="javascript:stopTimer()">
+            <center><h1 id="timer">00:00:00</h1></center>
+            <table align="center" style="max-width:800px;" width="90%">
+                <colgroup>
+                    <col width="33%">
+                    <col width="33%">
+                    <col width="33%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                            <img src="https://i.kym-cdn.com/photos/images/newsfeed/001/217/723/0cd.jpg" alt="Cover Photo" align="middle" width="100%">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b><u>請輸入申請人個人資料</u></b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>必須與身分證顯示相同，無需空格</b></td>
+                    </tr>
+                    <tr>
+                        <td>姓氏（英文大楷）</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input id="applicantsurname" maxlength="100" name="applicantsurname" onkeypress="return (event.charCode >= 65 && event.charCode <= 90)" pattern="^[A-Z]{1,}+" placeholder="（例：AUYEUNG）" required="" style="width:-webkit-fill-available;" title="例：AUYEUNG" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>名字（英文大楷）</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input id="applicantgivenname" maxlength="100" name="applicantgivenname" onkeypress="return (event.charCode >= 65 && event.charCode <= 90)" pattern="^[A-Z]{1,}+" placeholder="（例：TAIMAN）" required="" style="width:-webkit-fill-available;" title="例：TAIMAN" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>身分證號碼或護照號碼</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input maxlength="4" name="applicantidnum" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && event.shiftKey== false)" pattern="^[0-9]{4}$" placeholder="（首4位數字，例：1234）" required="" style="width:-webkit-fill-available;" title="首4位數字，例：1234" type="text" id="applicantidnum" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>電郵（英文小楷）</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input id="applicantemail" maxlength="100" name="applicantemail" onkeypress="return ((event.charCode == 37) || (event.charCode >= 43 && event.charCode <= 46) || (event.charCode >= 48 && event.charCode <= 57 && event.shiftKey == false) || (event.charCode >= 64 && event.charCode <= 90) || (event.charCode == 95) || (event.charCode >= 97 && event.charCode <= 122))" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="（例：chantaiman@abc.hk）" style="width:-webkit-fill-available;" title="例：chantaiman@abc.hk" type="email" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>　</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b><u>請輸入同行人士個人資料</u></b></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><b>必須與身份證顯示相同，無需空格</b></td>
+                    </tr>
+                    <tr>
+                        <td>同行人士姓氏（英文大楷）</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input id="companionsurname" maxlength="100" name="companionsurname" onkeypress="return (event.charCode >= 65 && event.charCode <= 90)" pattern="^[A-Z]{1,}+" placeholder="（例：AUYEUNG）" style="width:-webkit-fill-available;" title="例：AUYEUNG" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>同行人士名字（英文大楷）</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input id="companiongivenname" maxlength="100" name="companiongivenname" onkeypress="return (event.charCode >= 65 && event.charCode <= 90)" pattern="^[A-Z]{1,}+" placeholder="（例：TAIMAN）" style="width:-webkit-fill-available;" title="例：TAIMAN" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>同行人士身份證號碼或護照號碼</td>
+                        <td colspan="2" nowrap="nowrap">
+                            <input id="companionidnum" maxlength="4" name="companionidnum" onkeypress="return (event.charCode >= 48 && event.charCode <= 57 && event.shiftKey== false)" pattern="^[0-9]{4}$" placeholder="（首4位數字，例：1234）" style="width:-webkit-fill-available;" title="首4位數字，例：1234" type="text" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" colspan="3" nowrap="nowrap">
+                            <p id="f">You need to click below before continue!</p>
+                            <input type="button" onclick="this.remove(); capa();" value="Click me!" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td align="left"><input name="submit" onclick="return checkform()" type="submit" value="　繼續　"></td>
+                        <td align="right">
+                            <button onclick="location.href='exitsystem.php';" title="　離開　" type="button">
+                                <center>　離開　</center>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+		<table align="center" style="max-width:800px;" width="90%">
+			<tbody>
+				</tbody><colgroup><col width="100">
+				<col width="75">
+				<col width="200">
+				<col width="200">
+				<col width="75">
+				<col width="75">
+				<col width="75">
+				</colgroup><tbody><tr bgcolor="#66A9BD">
+					<td align="center" colspan="7" height="36"><b>Meme timetable </b></td>
+				</tr>
+				<tr bgcolor="#996ECC">
+					<td align="center" height="30"><b>Since</b></td>
+					<td align="center" height="30"><b>IDK</b></td>
+					<td align="center" height="30"><b>What meme</b></td>
+					<td align="center" height="30"><b>who made this</b></td>
+					<td align="center" height="30"><b>is it killed?</b></td>
+					<td align="center" height="30"><b></b></td>
+					<td align="center" height="30"><b></b></td>
+				</tr>
+				<tr bgcolor="#EBE2F5">
+					<td align="center" bgcolor="#996ECC"><small><b>wtf</b></small></td>
+					<td align="center"><small><b>xx</b></small></td>
+					<td align="center"><small>????????</small></td>
+					<td align="center"><small>you know what i mean</small></td>
+					<td align="center"><small>X</small></td>
+					<td align="center"></td>
+					<td align="center"><small></small></td>
+				</tr>
+				<tr bgcolor="#FFE0D6">
+					<td align="center" bgcolor="#FF6633"><small><b>lightyears</b></small></td>
+					<td align="center"><small><b>xx</b></small></td>
+					<td align="center"><small>great</small></td>
+					<td align="center"><small>focus above plz</small></td>
+					<td align="center"><small></small></td>
+					<td align="center"></td>
+					<td align="center"><small></small></td>
+				</tr>
+				<tr bgcolor="#E2EBCC">
+					<td align="center" bgcolor="#6E9900"><small><b>initial d</b></small></td>
+					<td align="center"><small><b>xx</b></small></td>
+					<td align="center"><small>lol</small></td>
+					<td align="center"><small>its meaningless</small></td>
+					<td align="center"><small>X</small></td>
+					<td align="center"></td>
+					<td align="center"><small></small></td>
+				</tr>
+			</tbody><tbody>
+		</tbody></table>
+	</body>

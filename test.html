@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Test</title>
+    <script type="text/javascript">
+        var x = 0;
+        function load() {
+            document.getElementById("t").innerHTML = x;
+            x++;
+            setTimeout(function () { load() }, 1000);
+        }
+    </script>
+</head>
+<body onload="load()">
+    <p id="t">0</p>
+</body>
+</html>

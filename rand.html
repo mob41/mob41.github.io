@@ -1,0 +1,44 @@
+<html>
+<script>
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+var x = 29;
+var y = [];
+
+function rand(){
+for (var i = 1; i<=x;i++){
+y.push(i);
+}
+for (var i = 0; i < 10000; i++){
+shuffle(y);
+}
+}
+
+function setnum(){
+var num = y.shift();
+if (num){
+alert("fin");
+return;
+}
+document.getElementById("num").innerHTML = num ;
+}
+
+function range(){
+x = parseInt(prompt("Range"));
+}
+</script>
+<body>
+<h1 id="num">---</h1>
+<input type="button" value="SetRange" onclick="range()" />
+<input type="button" value="Random" onclick="rand()" />
+<input type="button" value="Shift" onclick="setnum()" />
+<body>
+</html>

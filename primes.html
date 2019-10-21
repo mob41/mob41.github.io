@@ -1,0 +1,54 @@
+<html>
+<head>
+<script>
+function func(a, b){
+return Math.floor((a - (a % b)) / b);
+}
+
+function ui(){
+var n = parseInt(document.getElementById("num").value);
+if (isNaN(n)){
+alert("Please enter an integer.");
+return;
+}
+var p = alg1(n);
+document.getElementById("primes").innerHTML = p;
+}
+
+function alg1(n){
+var b = [];
+var c = 0;
+for (var i = 0; i < n; i++){
+b.push(true);
+}
+b[0] = false;
+
+for (var i = 1; i <= n; i++){
+//console.log(i);
+if (b[i - 1] == true){
+for (var j = 2; j <= func(n, i); j++){
+b[i * j - 1] = false;
+c++;
+}
+}
+//console.log(b);
+}
+console.log("T: " + c);
+
+var primes = "";
+for (var i = 0; i < n; i++){
+if (b[i]){
+primes += (i + 1) + " ";
+}
+}
+console.log(primes);
+return primes;
+}
+</script>
+</head>
+<body>
+<p>Show prime numbers from 1 till to: <input type="number" id="num" /><input type="button" value="Show" onclick="ui()"/></p>
+<p>Primes:</p>
+<p id="primes"></p>
+</body>
+</html>

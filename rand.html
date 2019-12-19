@@ -22,7 +22,35 @@ shuffle(y);
 }
 }
 
+var fakecount = 0;
+
+function fakenum(){
+     if (fakecount > 30){
+	     shiftnum();
+		  return;
+	  }
+
+document.getElementById("num").innerHTML = randpick();
+fakecount++;
+	  setTimeout(function(){fakenum()}, 50);
+}
+
+function randpick(){
+    if (y.length > 0){
+        return y[Math.floor(Math.random() * y.length)];
+    }
+}
+
 function setnum(){
+if (y.length==0){
+alert("Finished");
+return;
+}
+fakecount=0;
+fakenum();
+}
+
+function shiftnum(){
 var num = y.shift();
 if (!num){
 alert("Finished");
@@ -38,7 +66,9 @@ rand();
 </script>
 <body>
 <div style="width: 100%; height: 100%">
-<h1 id="num" style="font-size: xxx-large">---</h1>
+<center>
+<h1 id="num" style="font-size: 72px">---</h1>
+</center>
 <input type="button" value="Set range" onclick="range()" />
 <input type="button" value="Shift" onclick="setnum()" />
 </div>

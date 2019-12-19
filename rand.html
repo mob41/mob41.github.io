@@ -24,8 +24,8 @@ shuffle(y);
 
 function setnum(){
 var num = y.shift();
-if (num){
-alert("fin");
+if (!num){
+alert("Finished");
 return;
 }
 document.getElementById("num").innerHTML = num ;
@@ -33,12 +33,14 @@ document.getElementById("num").innerHTML = num ;
 
 function range(){
 x = parseInt(prompt("Range"));
+rand();
 }
 </script>
 <body>
-<h1 id="num">---</h1>
-<input type="button" value="SetRange" onclick="range()" />
-<input type="button" value="Random" onclick="rand()" />
+<div style="width: 100%; height: 100%">
+<h1 id="num" style="font-size: xxx-large">---</h1>
+<input type="button" value="Set range" onclick="range()" />
 <input type="button" value="Shift" onclick="setnum()" />
-<body>
+</div>
+</body>
 </html>

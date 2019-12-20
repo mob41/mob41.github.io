@@ -56,23 +56,44 @@ if (y.length==0){
 alert("Finished");
 return;
 }
+
+document.getElementById("setrangebtn").disabled = true;
+
+document.getElementById("randbtn").disabled = true;
+
 fakecount=0;
 fakenum();
+
+document.getElementById("setrangebtn").disabled = false;
+
+if (y.length != 0){
+document.getElementById("randbtn").disabled = false;
+} else {
+
+document.getElementById("msg").innerHTML = "All numbers have been shifted out." ;
+
+}
 }
 
 function shiftnum(){
 var num = y.shift();
-if (!num){
-alert("Finished");
-return;
-}
 document.getElementById("num").innerHTML = num ;
 }
 
 function range(){
+y = [];
 x = parseInt(prompt("Range"));
 rand();
+
+document.getElementById("msg").innerHTML = "" ;
+
+document.getElementById("randbtn").disabled = false;
+
 }
+
+document.getElementById("setrangebtn").disabled = false;
+
+document.getElementById("randbtn").disabled = true;
 </script>
 </head>
 <body>
@@ -80,8 +101,9 @@ rand();
 <center>
 <h1 id="num" style="font-size: 72px">---</h1>
 </center>
-<input type="button" value="Set range" onclick="range()" />
-<input type="button" value="Shift" onclick="setnum()" />
+<input type="button" value="Set range" onclick="range()" id="setrangebtn"/>
+<input type="button" value="Random" onclick="setnum()" id="randbtn"/>
+<p id="msg"></p>
 </div>
 </body>
 </html>
